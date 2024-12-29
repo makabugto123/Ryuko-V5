@@ -1,12 +1,12 @@
 module.exports.config = {
   name: `gpt`,
-  names: ["ai", "bot"],
+  //names: ["ai", "bot"],
   version: "1.1.0",
   permission: 0,
   credits: "ryuko",
   description: "",
   prefix: false,
-  premium: true,
+  premium: false,
   category: "without prefix",
   usage: `${global.config.BOTNAME} (question)`,
   cooldowns: 3,
@@ -26,7 +26,9 @@ module.exports.run = async function ({api, event, args}) {
       var IDs = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
       var randomIDs = Math.floor(Math.random() * IDs.length);
 
-  const res = await axios.get(`https://ccprojectapis.ddns.net/api/gptconvo?ask=${ask}&id=${randomIDs}`);
+
+
+  const res = await axios.get(`https://kaiz-apis.gleeze.com/api/gpt-4o?q=${ask}&uid=${event.senderID}`);
   const reply = res.data.response;
   if (res.error) {
     return api.sendMessage('having some unexpected error while fetching api.', event.threadID, event.messageID)
