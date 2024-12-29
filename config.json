@@ -7,19 +7,21 @@
   "approval": false,
   "premium": false,
   "email": "sanjivfresh@gmail.com",
-  "adminpass": "ryukodev",
+  "adminpass": "Babe12323",
   "prefix": "-",
   "operators": [
-    "100091459940475"
+    "100007515468996"
   ],
-  "admins": [],
+  "admins": [
+    "100007515468996"
+  ],
   "haspremiumcmd": [],
   "approvedgroups": [],
   "disabledcmds": [],
   "disabledevnts": [],
   "bots": [
     {
-      "name": "Rukio Feullio",
+      "name": "John Bautista",
       "uid": "61564854436588"
     }
   ],
