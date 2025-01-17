@@ -16,7 +16,7 @@ const process = require('process');
 const moment = require("moment-timezone");
 const express = require("express");
 const app = express();
-const port = 8090 || 9000 || 5555 || 5050 || 5000 || 3003 || 2000 || 1029 || 1010;
+const port = 3002;
 const dotenv = require('dotenv');
 const cron = require('node-cron');
 dotenv.config();
