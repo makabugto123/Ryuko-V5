@@ -7,18 +7,18 @@
   "approval": false,
   "premium": false,
   "autopost": true,
-  "email": "sanjivfresh@gmail.com",
+  "email": "sugapaalberto@gmail.com",
   "adminpass": "ryukodev",
   "operators": [
-    "100091459940475"
+    ""
   ],
   "autorestart": {
-    "status": true,
+    "status": false,
     "time": 40,
     "note": "the system is automatically restarts in 40 minutes"
   },
   "autoDeleteCache": {
-    "status": true,
+    "status": false,
     "time": 10,
     "note": "auto delete caches in 10 minutes, kindly set the status to true, if you dont want to delete caches, set the status to false."
   },
