@@ -16,7 +16,7 @@ const process = require('process');
 const moment = require("moment-timezone");
 const express = require("express");
 const app = express();
-const port = 3002;
+const port = 8090 || 9000 || 5555 || 5050 || 5000 || 3003 || 2000 || 1029 || 1010;
 const dotenv = require('dotenv');
 const cron = require('node-cron');
 dotenv.config();
@@ -363,7 +363,9 @@ app.post("/configure", (req, res) => {
     }
     edit(content, type);
 });
-app.listen(port);
+app.listen(port, () => {
+    logger(`listening on port ${chalk.blueBright(port)}`);
+});
 
 // LOAD CONFIG FILE
 var configValue;
