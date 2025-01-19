@@ -12,17 +12,20 @@ const headers = {
 
 const download = {};
 
-download["config"] = {
-  name: "media-downloader",
-  version: "69",
-  eventType: ["log:subscribe"],
-  credits: "Cliff", 
-  description: "Tiktok, googledrive, Facebook, fbwatch, instagram, youtube, capcut" 
+module.exports.config = {
+	name: "download",
+	eventType: ["log:subscribe"],
+	version: "1.0.1",
+	credits: "ryuko",
+	description: "Download Media",
+	dependencies: {
+		"fs-extra": ""
+	}
 };
 
 const downloadDirectory = path.resolve(__dirname, 'cache');
 
-download["handleEvent"] = async function ({ api, event }) {
+module.exports.run = async function({ api, event,Threads, botname, prefix}) {
   if (event.body !== null) {
     const regEx_tiktok = /https:\/\/(www\.|vt\.)?tiktok\.com\//;
     const link = event.body;
@@ -283,4 +286,4 @@ const regex = /https:\/\/www\.instagram\.com\/reel\/[a-zA-Z0-9_-]+\/\?igsh=[a-zA
   }
 };
 
-module.exports = download;
+//module.exports = download;
