@@ -15,6 +15,7 @@ const download = {};
 download["config"] = {
   name: "media-downloader",
   version: "69",
+  eventType: ["log:subscribe"],
   credits: "Cliff", 
   description: "Tiktok, googledrive, Facebook, fbwatch, instagram, youtube, capcut" 
 };
