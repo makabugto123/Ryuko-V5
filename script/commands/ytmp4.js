@@ -26,7 +26,7 @@ module.exports.run = async function({ api, event, args }) {
     }
     
     
-    const apiUrl1 = `https://betadash-search-download.vercel.app/yt?search=${encodeURIComponent(chilli)}`;
+    const apiUrl1 = `https://search.iyot.plus/ytsearch?title=${encodeURIComponent(chilli)}`;
     try {
     const response1 = await axios.get(apiUrl1);
     const data1 = response1.data.result[0];
