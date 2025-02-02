@@ -11,7 +11,7 @@ module.exports.config = {
     description: "Send Youtube Music",
     prefix: false,
     category: "without prefix",
-    usages: `ytmp3 [music title]`,
+    usages: `ytmp4 [video title]`,
     cooldowns: 5,
     dependencies: {
         "path": "",
@@ -22,7 +22,7 @@ module.exports.config = {
 module.exports.run = async function({ api, event, args }) {
     const chilli = args.join(' ');
     if (!chilli) {
-        return api.sendMessage('Please provide a song, for example: ytmp3 Selos', event.threadID, event.messageID);
+        return api.sendMessage('Please provide a video, for example: ytmp4 Selos', event.threadID, event.messageID);
     }
     const apiUrl1 = `https://betadash-search-download.vercel.app/yt?search=${encodeURIComponent(chilli)}`;
     try {
@@ -50,7 +50,7 @@ module.exports.run = async function({ api, event, args }) {
         const writer = fs.createWriteStream(filePath);
         downloadResponse.data.pipe(writer);
         writer.on('finish', async () => {
-            api.sendMessage(`title: ${maanghang.title}\n\ndownload link: ${maanghang.audio}\n\nuploader: ${channel}`, event.threadID, event.messageID);
+            api.sendMessage(`title: ${maanghang.title}\n\ndownload link: ${maanghang.video}\n\nuploader: ${channel}`, event.threadID, event.messageID);
             api.sendMessage({
                 attachment: fs.createReadStream(filePath)
             }, event.threadID, () => {
