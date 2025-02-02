@@ -31,26 +31,26 @@ module.exports.run = async function({ api, event, args }) {
     const yturl = data1[0].url;
     const channel = data1[0].channelName;
     
-        const apiUrl = `https://yt-video-production.up.railway.app/ytdl?url=${encodeURIComponent(yturl)}`;
+        const apiUrl = `https://downloader.iyot.plus/ytdl?url=${encodeURIComponent(yturl)}&type=mp3`;
     
         const response = await axios.get(apiUrl);
-        const maanghang = response.data;
+        const data = response.data;
 
-        if (!maanghang || !maanghang.audio) {
+        if (!data || !data.download) {
             return api.sendMessage('No song found for your search. Please try again with a different query.', event.threadID, event.messageID);
         }
-        const bundat = maanghang.audio;
-        const fileName = `${maanghang.title}.mp3`;
+        const download = data.download;
+        const fileName = `${data.title}.mp3`;
         const filePath = path.join(__dirname, fileName);
         const downloadResponse = await axios({
             method: 'GET',
-            url: bundat,
+            url: download,
             responseType: 'stream',
         });
         const writer = fs.createWriteStream(filePath);
         downloadResponse.data.pipe(writer);
         writer.on('finish', async () => {
-            api.sendMessage(`title: ${maanghang.title}\n\ndownload link: ${maanghang.audio}\n\nuploader: ${channel}`, event.threadID, event.messageID);
+            api.sendMessage(`title: ${data.title}\n\ndownload link: ${data.download}\n\nuploader: ${channel}`, event.threadID, event.messageID);
             api.sendMessage({
                 attachment: fs.createReadStream(filePath)
             }, event.threadID, () => {
