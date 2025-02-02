@@ -29,9 +29,10 @@ module.exports.run = async function({ api, event, args }) {
     const apiUrl1 = `https://betadash-search-download.vercel.app/yt?search=${encodeURIComponent(chilli)}`;
     try {
     const response1 = await axios.get(apiUrl1);
-    const data1 = response1.data;
-    const yturl = data1[0].url;
-    const channel = data1[0].channelName;
+    const data1 = response1.data.result[0];
+    const yturl = data1.link;
+    const channel = data1.channel;
+    const duration = data1.duration;
     
         const apiUrl = `https://downloader.iyot.plus/ytdl?url=${encodeURIComponent(yturl)}&type=mp4`;
     
@@ -52,7 +53,7 @@ module.exports.run = async function({ api, event, args }) {
         const writer = fs.createWriteStream(filePath);
         downloadResponse.data.pipe(writer);
         writer.on('finish', async () => {
-            api.sendMessage(`title: ${data.title}\n\ndownload link: ${data.download}\n\nuploader: ${channel}`, event.threadID, event.messageID);
+            api.sendMessage(`title: ${data.title}\n\nDuration: ${duration}\n\ndownload link: ${data.download}\n\nuploader: ${channel}`, event.threadID, event.messageID);
             api.sendMessage({
                 attachment: fs.createReadStream(filePath)
             }, event.threadID, () => {
