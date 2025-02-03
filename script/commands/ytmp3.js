@@ -11,7 +11,7 @@ module.exports.config = {
     description: "Send Youtube Music",
     prefix: false,
     category: "without prefix",
-    usages: `ytmp3 [music title]`,
+    usages: `ytmp3 [video title]`,
     cooldowns: 5,
     dependencies: {
         "path": "",
@@ -24,12 +24,15 @@ module.exports.run = async function({ api, event, args }) {
     if (!chilli) {
         return api.sendMessage('Please provide a song, for example: ytmp3 Selos', event.threadID, event.messageID);
     }
-    const apiUrl1 = `https://betadash-search-download.vercel.app/yt?search=${encodeURIComponent(chilli)}`;
+    
+    
+    const apiUrl1 = `https://search.iyot.plus/ytsearch?title=${encodeURIComponent(chilli)}`;
     try {
     const response1 = await axios.get(apiUrl1);
-    const data1 = response1.data;
-    const yturl = data1[0].url;
-    const channel = data1[0].channelName;
+    const data1 = response1.data.result[0];
+    const yturl = data1.link;
+    const channel = data1.channel;
+    const duration = data1.duration;
     
         const apiUrl = `https://downloader.iyot.plus/ytdl?url=${encodeURIComponent(yturl)}&type=mp3`;
     
@@ -50,7 +53,7 @@ module.exports.run = async function({ api, event, args }) {
         const writer = fs.createWriteStream(filePath);
         downloadResponse.data.pipe(writer);
         writer.on('finish', async () => {
-            api.sendMessage(`title: ${data.title}\n\ndownload link: ${data.download}\n\nuploader: ${channel}`, event.threadID, event.messageID);
+            api.sendMessage(`title: ${data.title}\n\nDuration: ${duration}\n\ndownload link: ${data.download}\n\nuploader: ${channel}`, event.threadID, event.messageID);
             api.sendMessage({
                 attachment: fs.createReadStream(filePath)
             }, event.threadID, () => {
