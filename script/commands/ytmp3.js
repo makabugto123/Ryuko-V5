@@ -34,7 +34,7 @@ module.exports.run = async function({ api, event, args }) {
     const channel = data1.channel;
     const duration = data1.duration;
     
-        const apiUrl = `https://downloader.iyot.plus/ytdl?url=${encodeURIComponent(yturl)}&type=mp3`;
+        const apiUrl = `https://downloader.iyot.plus/ytdl?url=${encodeURIComponent(yturl)}&type=mp3&bitrate=192`;
     
         const response = await axios.get(apiUrl);
         const data = response.data;
