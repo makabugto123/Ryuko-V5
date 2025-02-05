@@ -19,8 +19,11 @@ module.exports.config = {
     }
 };
 
-module.exports.run = async function({ api, event, args }) {
-    const chilli = args.join(' ');
+module.exports.run = async function({ api, event, args, Threads }) {
+const threadID = event.threadID;
+  const messageID = event.messageID;
+
+const chilli = args.join(' ');
     if (!chilli) {
         return api.sendMessage('Please provide a song, for example: ytmp3 Selos', event.threadID, event.messageID);
     }
