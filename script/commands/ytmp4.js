@@ -19,20 +19,26 @@ module.exports.config = {
     }
 };
 
-module.exports.run = async function({ api, event, args }) {
+module.exports.run = async function({ api, event, args, Threads }) {
+const threadID = event.threadID;
+  const messageID = event.messageID;
+
     const chilli = args.join(' ');
     if (!chilli) {
         return api.sendMessage('Please provide a song, for example: ytmp4 Selos', event.threadID, event.messageID);
     }
     
+    const searchMes = await api.sendMessage("🔍Searching Music...", threadID, messageID);
     
     const apiUrl1 = `https://search.iyot.plus/ytsearch?title=${encodeURIComponent(chilli)}`;
     try {
     const response1 = await axios.get(apiUrl1);
-    const data1 = response1.data.result[0];
+    const data1 = response1.data.results[0];
     const yturl = data1.link;
     const channel = data1.channel;
     const duration = data1.duration;
+    
+    api.editMessage(`✅Found Link\n${yturl}`, searchMes.messageID, threadID);
     
         const apiUrl = `https://downloader.iyot.plus/ytdl?url=${encodeURIComponent(yturl)}&type=mp4&resolution=360`;
     
@@ -54,6 +60,7 @@ module.exports.run = async function({ api, event, args }) {
         downloadResponse.data.pipe(writer);
         writer.on('finish', async () => {
             api.sendMessage(`title: ${data.title}\n\nDuration: ${duration}\n\ndownload link: ${data.download}\n\nuploader: ${channel}`, event.threadID, event.messageID);
+            api.unsendMessage(searchMes.messageID);
             api.sendMessage({
                 attachment: fs.createReadStream(filePath)
             }, event.threadID, () => {
